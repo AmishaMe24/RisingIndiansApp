@@ -9,28 +9,6 @@
     android:background="@color/white"
     tools:context=".HomeActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Welcome to Your Profile"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorPrimary" />
-
-
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimary"
-        android:text="Logout"
-        android:textAllCaps="false"
-        android:textColor="#ffffff" />
 
     <FrameLayout
         android:id="@+id/fragment_container"

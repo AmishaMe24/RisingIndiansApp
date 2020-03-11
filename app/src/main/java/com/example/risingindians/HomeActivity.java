@@ -19,21 +19,9 @@ public class HomeActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        findViewById(R.id.buttonLogout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-
-                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                startActivity(intent);
-            }
-        });
-
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
-
+        loadFragment(new EventsFragment());
     }
 
     private boolean loadFragment(Fragment fragment) {
