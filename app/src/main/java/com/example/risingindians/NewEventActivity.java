@@ -1,6 +1,6 @@
 package com.example.risingindians;
 
-import android.annotation.SuppressLint;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -69,7 +68,7 @@ public class NewEventActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
 
-        eventImagesReference = FirebaseStorage.getInstance().getReference().child("Events");
+        eventImagesReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -111,9 +110,9 @@ public class NewEventActivity extends AppCompatActivity{
                     SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
                     savecurrentTime = currentTime.format(calendar.getTime());
 
-                    eventrandonKey =  savecurrentDate + savecurrentTime;
+                    eventrandonKey =  UUID.randomUUID().toString();
 
-                    final StorageReference filePath = eventImagesReference.child(eventrandonKey + eventImageUri);
+                   final StorageReference filePath = eventImagesReference.child("Events").child(eventrandonKey +".jpg");
 
 
                     final UploadTask uploadTask = filePath.putFile(eventImageUri);
