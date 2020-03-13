@@ -8,11 +8,16 @@
     android:background="@color/white"
     tools:context=".VerifyPhoneActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:id="@+id/imageView"
-        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/ic_logo"
         android:contentDescription="RisingIndians" />
@@ -71,6 +76,6 @@
         android:layout_below="@id/buttonSignIn"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
-
+    </RelativeLayout>
 
 </RelativeLayout>

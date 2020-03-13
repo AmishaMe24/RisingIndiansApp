@@ -8,13 +8,15 @@
     android:background="@color/white"
     tools:context=".LoginActivity">
 
-
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:id="@+id/imageView"
-            android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/ic_logo"
             android:contentDescription="RisingIndians" />
@@ -67,6 +69,6 @@
             android:textColor="#ffffff" />
 
 
-
+</RelativeLayout>
 
 </RelativeLayout>
