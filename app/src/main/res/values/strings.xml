@@ -4,4 +4,10 @@
     <string name="title_donate">Donate</string>
     <string name="title_timeline">Timeline</string>
     <string name="title_account">Account</string>
+    <string name="action_settings">Account Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="profile_setup_name">Enter Your Name</string>
+    <string name="setup_btn_name_txt">Save Account Settings</string>
+    <string name="TxtAccountSettings">Account Settings</string>
+
 </resources>
