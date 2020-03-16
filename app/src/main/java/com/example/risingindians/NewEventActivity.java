@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,8 +38,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -57,11 +55,9 @@ public class NewEventActivity extends AppCompatActivity{
     private ProgressDialog progressDialog;
     private StorageReference eventImagesReference;
     private FirebaseFirestore firebaseFirestore;
-    //private DatabaseReference eventRef;
     private FirebaseAuth firebaseAuth;
     private String current_user_id;
-    private static final int GalleryPick =1;
-    private String savecurrentDate, savecurrentTime,desc;
+    private String desc;
     private String eventrandonKey, downloadImageUrl;
     private Bitmap compressedImageFile;
 
@@ -73,7 +69,6 @@ public class NewEventActivity extends AppCompatActivity{
         setContentView(R.layout.activity_new_event);
 
         eventImagesReference = FirebaseStorage.getInstance().getReference();
-        //eventRef = FirebaseDatabase.getInstance().getReference().child("Events");
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -93,7 +88,7 @@ public class NewEventActivity extends AppCompatActivity{
         newEventImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //OpenGallery();
+
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setMinCropResultSize(512, 512)
@@ -115,27 +110,10 @@ public class NewEventActivity extends AppCompatActivity{
 
 }
 
-   /* private void OpenGallery() {
-        Intent galleryIntent = new Intent();
-        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,GalleryPick);
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-       /* if (requestCode == GalleryPick && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            eventImageUri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), eventImageUri);
-                newEventImage.setImageBitmap(bitmap);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
@@ -173,13 +151,6 @@ public class NewEventActivity extends AppCompatActivity{
         progressDialog.setTitle("Uploading");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        /*Calendar calendar =Calendar.getInstance();
-
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-        savecurrentDate = currentDate.format(calendar.getTime());
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-        savecurrentTime = currentTime.format(calendar.getTime());*/
 
         eventrandonKey =  UUID.randomUUID().toString();
 
@@ -202,7 +173,6 @@ public class NewEventActivity extends AppCompatActivity{
 
         final StorageReference filePath = eventImagesReference.child("Events").child(eventrandonKey +".jpg");
 
-        //final UploadTask uploadTask = filePath.putFile(eventImageUri);
 
         final UploadTask uploadTask = filePath.putBytes(imageData);
 
@@ -261,30 +231,11 @@ public class NewEventActivity extends AppCompatActivity{
     private void SaveEventInfoToDatabase(){
 
         HashMap<String, Object> eventMap = new HashMap<>();
-        eventMap.put("Eventid", eventrandonKey);
-        eventMap.put("Date",savecurrentDate);
-        eventMap.put("Time",savecurrentTime);
-        eventMap.put("Description",desc);
-        eventMap.put("Image",downloadImageUrl);
+        eventMap.put("image_url",downloadImageUrl);
+        eventMap.put("desc",desc);
         eventMap.put("user_id", current_user_id);
+        eventMap.put("timestamp", FieldValue.serverTimestamp());
 
-
-        /*eventRef.child(eventrandonKey).updateChildren(eventMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    progressDialog.dismiss();
-                    Toast.makeText(NewEventActivity.this,"Event successfully added ",Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(NewEventActivity.this, HomeActivity.class);
-                    startActivity(mainIntent);
-                }
-                else{
-                    String message= task.getException().toString();
-                    Toast.makeText(NewEventActivity.this,"Error :"+ message ,Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });*/
 
         firebaseFirestore.collection("Events").add(eventMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
@@ -295,7 +246,7 @@ public class NewEventActivity extends AppCompatActivity{
                     Toast.makeText(NewEventActivity.this, "Event was added", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(NewEventActivity.this, HomeActivity.class);
                     startActivity(mainIntent);
-                    //finish();
+                    finish();
 
                 } else {
                     String message= task.getException().toString();

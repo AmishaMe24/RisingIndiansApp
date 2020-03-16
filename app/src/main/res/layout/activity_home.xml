@@ -17,7 +17,7 @@
         app:titleTextColor="@color/white"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -49,10 +49,11 @@
         android:layout_marginLeft="340dp"
         android:layout_marginBottom="80dp"
         android:clickable="true"
-        app:fabSize="normal"
         app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_add"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:focusable="true"
+        android:layout_marginStart="340dp" />
 
 
 
