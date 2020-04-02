@@ -6,6 +6,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -43,7 +45,6 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
     public EventRecyclerAdapter(List<EventPost> event_list){
         this.event_list = event_list;
-
     }
 
     @NonNull
@@ -58,7 +59,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         holder.setIsRecyclable(false);
 
@@ -71,9 +72,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         String image_url = event_list.get(position).getImage_url();
         holder.setEventImage(image_url);
 
-        String user_id = event_list.get(position).getUser_id();
+        String event_user_id = event_list.get(position).getUser_id();
 
-        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        if(event_user_id.equals(currentUserId)){
+            holder.eventDeleteBtn.setEnabled(true);
+            holder.eventDeleteBtn.setVisibility(View.VISIBLE);
+        }
+
+        //User Retrieve Data
+        firebaseFirestore.collection("Users").document(event_user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
@@ -91,6 +98,8 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                 }
             }
         });
+
+
         try {
             long millisecond = event_list.get(position).getTimestamp().getTime();
             String dateString = DateFormat.format("MM/dd/yyyy", new Date(millisecond)).toString();
@@ -166,6 +175,21 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
 
+        holder.eventDeleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                firebaseFirestore.collection("Events").document(eventPostId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        event_list.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
@@ -186,12 +210,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         private ImageView eventLikeBtn;
         private TextView eventLikeCount;
+        private Button eventDeleteBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
 
             eventLikeBtn = mView.findViewById(R.id.event_like_btn);
+            eventDeleteBtn = mView.findViewById(R.id.event_delete_btn);
+
         }
 
         public void setDecText(String descText){

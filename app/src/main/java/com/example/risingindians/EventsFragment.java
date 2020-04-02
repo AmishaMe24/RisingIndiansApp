@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,7 +29,7 @@ import java.util.List;
 public class EventsFragment extends Fragment {
 
     private RecyclerView events_list_view;
-    private List<EventPost> event_list;
+    private List<EventPost> event_list;;
 
     private EventRecyclerAdapter eventRecyclerAdapter;
     private DocumentSnapshot lastVisible;
@@ -84,6 +86,7 @@ public class EventsFragment extends Fragment {
                     if (isFirstPageFirstLoad) {
                         lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
                         event_list.clear();
+
                     }
 
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
@@ -91,8 +94,7 @@ public class EventsFragment extends Fragment {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
                                 String eventPostId = doc.getDocument().getId();
-                                EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(eventPostId);
-
+                                final EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(eventPostId);
                                 if (isFirstPageFirstLoad) {
 
                                     event_list.add(eventPost);
@@ -139,7 +141,8 @@ public class EventsFragment extends Fragment {
                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
                                 String eventPostId = doc.getDocument().getId();
-                                EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(eventPostId);
+                                final EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(eventPostId);
+
                                 event_list.add(eventPost);
 
                                 eventRecyclerAdapter.notifyDataSetChanged();
