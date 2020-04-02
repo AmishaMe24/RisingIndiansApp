@@ -1,6 +1,7 @@
 package com.example.risingindians;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,10 +20,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -54,7 +62,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         holder.setIsRecyclable(false);
 
-        //final String eventPostId = event_list.get(position).EventPostId;
+        final String eventPostId = event_list.get(position).EventPostId;
         final String currentUserId = firebaseAuth.getCurrentUser().getUid();
 
         String desc_data = event_list.get(position).getDesc();
@@ -92,6 +100,71 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             Toast.makeText(context, "Exception : " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+        //Get Likes Count
+        firebaseFirestore.collection("Events/" + eventPostId + "/Likes").addSnapshotListener( new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+
+                if(!documentSnapshots.isEmpty()){
+
+                    int count = documentSnapshots.size();
+
+                    holder.updateLikesCount(count);
+
+                } else {
+
+                    holder.updateLikesCount(0);
+
+                }
+
+            }
+        });
+
+        //Get Likes
+        firebaseFirestore.collection("Events/" + eventPostId + "/Likes").document(currentUserId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+
+                if(documentSnapshot.exists()){
+
+                    holder.eventLikeBtn.setImageDrawable(context.getDrawable(R.drawable.ic_likeaccent));
+
+                } else {
+
+                    holder.eventLikeBtn.setImageDrawable(context.getDrawable(R.drawable.ic_likegray));
+
+                }
+
+            }
+        });
+
+        //likes Feature
+        holder.eventLikeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                firebaseFirestore.collection("Events/" + eventPostId + "/Likes").document(currentUserId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if(!task.getResult().exists()){
+
+                            Map<String, Object> likesMap = new HashMap<>();
+                            likesMap.put("timestamp", FieldValue.serverTimestamp());
+
+                            firebaseFirestore.collection("Events/" + eventPostId + "/Likes").document(currentUserId).set(likesMap);
+
+                        } else {
+
+                            firebaseFirestore.collection("Events/" + eventPostId + "/Likes").document(currentUserId).delete();
+
+                        }
+
+                    }
+                });
+            }
+        });
 
     }
 
@@ -111,9 +184,14 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView eventUserName;
         private CircleImageView eventUserImage;
 
+        private ImageView eventLikeBtn;
+        private TextView eventLikeCount;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+
+            eventLikeBtn = mView.findViewById(R.id.event_like_btn);
         }
 
         public void setDecText(String descText){
@@ -149,6 +227,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             placeholderOption.placeholder(R.drawable.ic_face);
 
             Glide.with(context).applyDefaultRequestOptions(placeholderOption).load(image).into(eventUserImage);
+
+        }
+
+        public void updateLikesCount(int count){
+
+            eventLikeCount = mView.findViewById(R.id.event_like_count);
+            eventLikeCount.setText(count + " Likes");
 
         }
     }

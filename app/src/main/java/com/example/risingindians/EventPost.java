@@ -2,7 +2,7 @@ package com.example.risingindians;
 import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Date;
 
-public class EventPost {
+public class EventPost extends EventPostId{
 
     public String user_id,image_url,desc;
     public Date timestamp;

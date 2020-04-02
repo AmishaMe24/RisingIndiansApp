@@ -83,15 +83,15 @@ public class EventsFragment extends Fragment {
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                     if (isFirstPageFirstLoad) {
                         lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
-                        //event_list.clear();
+                        event_list.clear();
                     }
 
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
 
                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                                //String eventPostId = doc.getDocument().getId();
-                                EventPost eventPost = doc.getDocument().toObject(EventPost.class);
+                                String eventPostId = doc.getDocument().getId();
+                                EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(eventPostId);
 
                                 if (isFirstPageFirstLoad) {
 
@@ -138,8 +138,8 @@ public class EventsFragment extends Fragment {
 
                             if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                                //String eventPostId = doc.getDocument().getId();
-                                EventPost eventPost = doc.getDocument().toObject(EventPost.class);
+                                String eventPostId = doc.getDocument().getId();
+                                EventPost eventPost = doc.getDocument().toObject(EventPost.class).withId(eventPostId);
                                 event_list.add(eventPost);
 
                                 eventRecyclerAdapter.notifyDataSetChanged();
