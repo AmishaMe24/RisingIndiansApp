@@ -1,6 +1,7 @@
 package com.example.risingindians;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -175,6 +176,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
 
+        //Event Delete
         holder.eventDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +189,18 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
                         notifyDataSetChanged();
                     }
                 });
+            }
+        });
+
+        //Event comment
+        holder.eventCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent commentIntent = new Intent(context, CommentsActivity.class);
+                commentIntent.putExtra("event_post_id", eventPostId);
+                context.startActivity(commentIntent);
+
             }
         });
 
@@ -212,12 +226,15 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView eventLikeCount;
         private Button eventDeleteBtn;
 
+        private ImageView eventCommentBtn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
 
             eventLikeBtn = mView.findViewById(R.id.event_like_btn);
             eventDeleteBtn = mView.findViewById(R.id.event_delete_btn);
+            eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
 
         }
 
