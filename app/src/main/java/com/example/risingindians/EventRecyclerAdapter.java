@@ -204,6 +204,26 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
 
+        //Get Comments Count
+        firebaseFirestore.collection("Events/" + eventPostId + "/Comments").addSnapshotListener( new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+
+                if(!documentSnapshots.isEmpty()){
+
+                    int count = documentSnapshots.size();
+
+                    holder.updateCommentsCount(count);
+
+                } else {
+
+                    holder.updateCommentsCount(0);
+
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -224,6 +244,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
         private ImageView eventLikeBtn;
         private TextView eventLikeCount;
+        private TextView eventCommentCount;
         private Button eventDeleteBtn;
 
         private ImageView eventCommentBtn;
@@ -278,6 +299,13 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
 
             eventLikeCount = mView.findViewById(R.id.event_like_count);
             eventLikeCount.setText(count + " Likes");
+
+        }
+
+        public void updateCommentsCount(int count){
+
+            eventCommentCount = mView.findViewById(R.id.event_comment_count);
+            eventCommentCount.setText(count + " comments");
 
         }
     }
