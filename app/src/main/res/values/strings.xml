@@ -11,5 +11,8 @@
     <string name="TxtAccountSettings">Account Settings</string>
     <string name="Open">Open navigation drawer</string>
     <string name="Close">Close Navigation drawer</string>
+    <string name="sortby_month">Month</string>
+    <string name="sortby_year">Year</string>
+    <string name="sortby_day">Day</string>
 
 </resources>
