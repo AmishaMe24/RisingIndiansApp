@@ -2,26 +2,38 @@ package com.example.risingindians;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -30,13 +42,17 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton addpostbtn;
 
     private BottomNavigationView navigationView;
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView nv;
+    private Uri profileImageURI= null;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore;
 
     private EventsFragment eventsFragment;
     private DonateFragment donateFragment;
-    private TimelineFragment timelineFragment;
+    private Timeline_Fragment timelineFragment;
     private AccountFragment accountFragment;
 
     @Override
@@ -44,9 +60,26 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mainToolbar = (Toolbar)findViewById(R.id.main_toolbar);
+        /*mainToolbar = (Toolbar)findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
-        getSupportActionBar().setTitle("Rising Indians");
+        getSupportActionBar().setTitle("Rising Indians");*/
+
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#E26347"));
+
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+
+        dl = (DrawerLayout)findViewById(R.id.activity_home);
+        t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
+
+        dl.addDrawerListener(t);
+        t.syncState();
+
+        nv = (NavigationView)findViewById(R.id.nv);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -59,10 +92,32 @@ public class HomeActivity extends AppCompatActivity {
             // FRAGMENTS
             eventsFragment = new EventsFragment();
             donateFragment = new DonateFragment();
-            timelineFragment = new TimelineFragment();
+            timelineFragment = new Timeline_Fragment();
             accountFragment = new AccountFragment();
 
             initializeFragment();
+
+            nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    int id = item.getItemId();
+                    switch(id)
+                    {
+                        case R.id.action_logout_btn:
+                            logout();
+                            return true;
+
+                        case R.id.action_settings_btn:
+                            Intent settingsintent = new Intent(HomeActivity.this, AccountSetupActivity.class);
+                            startActivity(settingsintent);
+                            return true;
+
+                        default:
+                            return false;
+                    }
+
+                }
+            });
 
             navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -108,8 +163,20 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+
+
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(t.onOptionsItemSelected(item))
+            return true;
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -152,13 +219,13 @@ public class HomeActivity extends AppCompatActivity {
         return loadFragment(fragment);
     }*/
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.top_menu,menu);
 
         return true;
-    }
+    }*/
 
     @Override
     protected void onStart() {
@@ -185,6 +252,26 @@ public class HomeActivity extends AppCompatActivity {
 
                         }
 
+                        else{
+
+                            View headerview = nv.getHeaderView(0);
+                            TextView username_textview = nv.findViewById(R.id.user_name);
+                            CircleImageView profileimageview = nv.findViewById(R.id.user_profile_image);
+
+                            String name = task.getResult().getString("name");
+                            String image = task.getResult().getString("image");
+
+                            profileImageURI = Uri.parse(image);
+
+                            username_textview.setText(name);
+
+                            RequestOptions placeholderRequest = new RequestOptions();
+                            placeholderRequest.placeholder(R.drawable.ic_profile_image);
+
+                            Glide.with(HomeActivity.this).setDefaultRequestOptions(placeholderRequest).load(image).into(profileimageview);
+
+                        }
+
                     } else {
 
                         String errorMessage = task.getException().getMessage();
@@ -200,7 +287,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
@@ -219,7 +306,7 @@ public class HomeActivity extends AppCompatActivity {
 
         }
       
-    }
+    }*/
 
     private void logout() {
         mAuth.signOut();

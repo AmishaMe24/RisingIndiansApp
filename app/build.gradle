@@ -47,4 +47,6 @@ dependencies {
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.akshaykale.android:android-timeline-view:2.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

@@ -9,5 +9,7 @@
     <string name="profile_setup_name">Enter Your Name</string>
     <string name="setup_btn_name_txt">Save Account Settings</string>
     <string name="TxtAccountSettings">Account Settings</string>
+    <string name="Open">Open navigation drawer</string>
+    <string name="Close">Close Navigation drawer</string>
 
 </resources>
