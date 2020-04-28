@@ -32,24 +32,16 @@
         android:inputType="textMultiLine" />
 
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/add_new_event_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:titleTextColor="@color/white"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
     <ImageView
         android:id="@+id/add_new_image"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="300dp"
         app:srcCompat="@drawable/ic_add_photo"
         tools:ignore="VectorDrawableCompat"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/add_new_event_toolbar"
         android:layout_centerHorizontal="true"/>
 
 

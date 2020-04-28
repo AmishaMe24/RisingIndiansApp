@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
@@ -51,8 +54,6 @@ import id.zelory.compressor.Compressor;
 
 public class NewEventActivity extends AppCompatActivity{
 
-
-    private Toolbar newEventtoolbar;
     private ImageView newEventImage;
     private EditText newEventDesc;
     private Button newEventbtn;
@@ -79,9 +80,16 @@ public class NewEventActivity extends AppCompatActivity{
 
         current_user_id = firebaseAuth.getCurrentUser().getUid();
 
-        newEventtoolbar = findViewById(R.id.add_new_event_toolbar);
-        setSupportActionBar(newEventtoolbar);
-        getSupportActionBar().setTitle("Add New Event");
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Add New Event");
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#E26347"));
+
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+
 
 
         newEventImage = findViewById(R.id.add_new_image);
