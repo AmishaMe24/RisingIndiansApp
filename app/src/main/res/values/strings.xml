@@ -20,5 +20,6 @@
     <string name="emaildata">emaildata</string>
     <string name="give_your_feedback">Give your Feedback</string>
     <string name="feedback">feedback</string>
+    <string name="submit_feedback">Submit Feedback</string>
 
 </resources>
