@@ -14,5 +14,11 @@
     <string name="sortby_month">Month</string>
     <string name="sortby_year">Year</string>
     <string name="sortby_day">Day</string>
+    <string name="name">Name</string>
+    <string name="email">email</string>
+    <string name="namedata">namedata</string>
+    <string name="emaildata">emaildata</string>
+    <string name="give_your_feedback">Give your Feedback</string>
+    <string name="feedback">feedback</string>
 
 </resources>
