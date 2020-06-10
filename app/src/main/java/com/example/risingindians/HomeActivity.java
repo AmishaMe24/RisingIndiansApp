@@ -112,6 +112,11 @@ public class HomeActivity extends AppCompatActivity {
                             startActivity(settingsintent);
                             return true;
 
+                        case R.id.action_contact_btn:
+                            Intent contactintent = new Intent(HomeActivity.this, ContactUsActivity.class);
+                            startActivity(contactintent);
+                            return true;
+
                         default:
                             return false;
                     }

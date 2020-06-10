@@ -27,6 +27,8 @@
             android:name=".NewEventActivity"
             android:parentActivityName=".HomeActivity" />
         <activity android:name=".AccountSetupActivity"/>
+        <activity android:name=".ContactUsActivity"
+        android:parentActivityName=".HomeActivity"></activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
@@ -35,7 +37,7 @@
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

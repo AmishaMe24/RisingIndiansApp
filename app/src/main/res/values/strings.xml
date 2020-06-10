@@ -14,5 +14,19 @@
     <string name="sortby_month">Month</string>
     <string name="sortby_year">Year</string>
     <string name="sortby_day">Day</string>
+    <string name="action_contactus">Contact Us</string>
+    <string name="contact_form_name">Your Name</string>
+    <string name="contact_form_email">Your Email</string>
+    <string name="contact_form_subject">Subject</string>
+    <string name="contact_form_message">Message</string>
+    <string name="contact_form_button">Send Message</string>
+    <string name="label">Your Name</string>
+    <string name="your_name">Your Name</string>
+    <string name="your_email">Your Email</string>
+    <string name="send_message">Send Message</string>
+    <string name="contact_form">Send us an Email</string>
+    <string name="mail_suffix">\@gmail.com</string>
+    <string name="phonenumber"><u>+91 8980862848</u></string>
+    <string name="address">A, 23 Javed Park, Tandalja Road, Vadodara, Gujarat 390020</string>
 
 </resources>

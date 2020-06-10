@@ -7,6 +7,12 @@
         android:id="@+id/action_settings_btn"
         android:icon="@drawable/ic_settings"
         android:title="@string/action_settings" />
+
+    <item
+        android:id="@+id/action_contact_btn"
+        android:icon="@drawable/ic_contact"
+        android:title="@string/action_contactus" />
+
     <item
         android:id="@+id/action_logout_btn"
         android:icon="@drawable/logout"

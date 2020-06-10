@@ -1,6 +1,7 @@
 package com.example.risingindians;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 public class EventsFragment extends Fragment {
@@ -83,11 +86,16 @@ public class EventsFragment extends Fragment {
             firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                    if (isFirstPageFirstLoad) {
-                        lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
-                        event_list.clear();
 
+                    if (e != null) {
+                        Log.d(TAG, "Error:" + e.getMessage());
                     }
+                    else {
+                        if (isFirstPageFirstLoad) {
+                            lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1);
+                            event_list.clear();
+
+                        }
 
                         for (DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()) {
 
@@ -114,7 +122,7 @@ public class EventsFragment extends Fragment {
                         isFirstPageFirstLoad = false;
 
                     }
-
+                }
 
             });
         }
