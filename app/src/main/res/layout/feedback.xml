@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/namedata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/namedata"
+        android:inputType="textPersonName"
+        android:text="@string/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/feedbackdata"
+        android:layout_width="324dp"
+        android:layout_height="209dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:hint="@string/feedback"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:text="@string/give_your_feedback"
+        app:layout_constraintEnd_toEndOf="@+id/emaildata"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emaildata"
+        app:layout_constraintTop_toBottomOf="@+id/emaildata" />
+
+    <EditText
+        android:id="@+id/emaildata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:freezesText="emaildata"
+        android:inputType="textEmailAddress"
+        android:text="Email"
+        app:layout_constraintEnd_toEndOf="@+id/namedata"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/namedata"
+        app:layout_constraintTop_toBottomOf="@+id/namedata" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="392dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/submit_feedback"
+        app:layout_constraintEnd_toEndOf="@+id/feedbackdata"
+        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintStart_toStartOf="@+id/feedbackdata"
+        app:layout_constraintTop_toBottomOf="@+id/feedbackdata" />
+</androidx.constraintlayout.widget.ConstraintLayout>
