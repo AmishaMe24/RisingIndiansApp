@@ -100,6 +100,8 @@
                 app:layout_constraintStart_toEndOf="@+id/event_like_btn"
                 app:layout_constraintTop_toBottomOf="@+id/event_desc" />
 
+
+
             <TextView
                 android:id="@+id/event_comment_count"
                 android:layout_width="wrap_content"
@@ -151,6 +153,20 @@
                 app:layout_constraintBottom_toTopOf="@+id/event_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/share_btn"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="42dp"
+                android:layout_height="32dp"
+                app:icon="@drawable/ic_share"
+                android:layout_marginRight="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/event_comment_icon"
+                app:layout_constraintTop_toBottomOf="@+id/event_desc"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="210dp"
+                tools:layout_editor_absoluteY="341dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

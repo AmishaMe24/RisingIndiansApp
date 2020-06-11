@@ -70,7 +70,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         String desc_data = event_list.get(position).getDesc();
         holder.setDecText(desc_data);
 
-        String image_url = event_list.get(position).getImage_url();
+        final String image_url = event_list.get(position).getImage_url();
         holder.setEventImage(image_url);
 
         String event_user_id = event_list.get(position).getUser_id();
@@ -224,6 +224,21 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             }
         });
 
+        //Share Button
+        holder.eventShareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, image_url);
+                shareIntent.setType("image/jpeg");
+                context.startActivity(Intent.createChooser(shareIntent, "Share Image Using"));
+
+
+            }
+        });
+
     }
 
     @Override
@@ -246,6 +261,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
         private TextView eventLikeCount;
         private TextView eventCommentCount;
         private Button eventDeleteBtn;
+        private Button eventShareBtn;
 
         private ImageView eventCommentBtn;
 
@@ -256,6 +272,7 @@ public class EventRecyclerAdapter extends RecyclerView.Adapter<EventRecyclerAdap
             eventLikeBtn = mView.findViewById(R.id.event_like_btn);
             eventDeleteBtn = mView.findViewById(R.id.event_delete_btn);
             eventCommentBtn = mView.findViewById(R.id.event_comment_icon);
+            eventShareBtn = mView.findViewById(R.id.share_btn);
 
         }
 
