@@ -3,9 +3,12 @@ package com.example.risingindians;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,11 +70,18 @@ public class HomeActivity extends AppCompatActivity {
         ActionBar actionBar;
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
+        actionBar.setHomeAsUpIndicator(upArrow);
+
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#E26347"));
 
         // Set BackgroundDrawable
         actionBar.setBackgroundDrawable(colorDrawable);
+        actionBar.setTitle(Html.fromHtml("<font color='#FFFFFF'> Rising Indians </font>"));
 
         dl = (DrawerLayout)findViewById(R.id.activity_home);
         t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);

@@ -41,14 +41,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="340dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="80dp"
+        style="Widget.MaterialComponents.FloatingActionButton"
         android:clickable="true"
         app:backgroundTint="@color/colorPrimaryDark"
+        app:tint="@color/white"
         app:srcCompat="@drawable/ic_add"
         tools:ignore="VectorDrawableCompat"
-        android:focusable="true"
-        android:layout_marginStart="340dp" />
+        android:focusable="true" />
 
 
     </RelativeLayout>
