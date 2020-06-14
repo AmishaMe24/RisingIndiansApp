@@ -78,7 +78,6 @@
         android:textSize="18dp"
         app:backgroundTint = "@color/colorPrimaryDark"
         android:textAllCaps="false"
-        style="@style/Widget.MaterialComponents.Button"
         android:textColor="@color/colorAccent" />
 
     <ProgressBar

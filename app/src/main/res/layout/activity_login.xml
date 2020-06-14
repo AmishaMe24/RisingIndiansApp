@@ -40,7 +40,7 @@
             android:layout_below="@id/imageView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
-            android:text="May I ask you phone number?"
+            android:text="May I ask your phone number?"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textColor="@color/colorAccent" />
 
@@ -65,6 +65,8 @@
                 android:digits="0123456789"
                 android:textColor="@color/colorAccent"
                 android:hint="Enter your number"
+                android:textCursorDrawable ="@null"
+                android:backgroundTint="@color/colorAccent"
                 android:maxLength="10" />
 
         </LinearLayout>
@@ -86,12 +88,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/buttonContinue"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/amatic_sc_bold"
             android:text="Together We Can Do Wonders"
             android:textColor="@color/colorAccent"
             android:layout_centerHorizontal="true"
-            android:textSize="44dp"></TextView>
+            android:textSize="40dp"></TextView>
 
 
     </RelativeLayout>
