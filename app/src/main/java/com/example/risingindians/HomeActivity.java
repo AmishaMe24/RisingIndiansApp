@@ -62,9 +62,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        /*mainToolbar = (Toolbar)findViewById(R.id.main_toolbar);
-        setSupportActionBar(mainToolbar);
-        getSupportActionBar().setTitle("Rising Indians");*/
 
         ActionBar actionBar;
         actionBar = getSupportActionBar();
@@ -89,8 +86,6 @@ public class HomeActivity extends AppCompatActivity {
 
         if(mAuth.getCurrentUser() != null) {
             navigationView = findViewById(R.id.bottom_navigation);
-            //navigationView.setOnNavigationItemSelectedListener(this);
-            //loadFragment(new EventsFragment());
 
             // FRAGMENTS
             eventsFragment = new EventsFragment();
@@ -256,7 +251,6 @@ public class HomeActivity extends AppCompatActivity {
 
                             Intent setupIntent = new Intent(HomeActivity.this, AccountSetupActivity.class);
                             startActivity(setupIntent);
-                            finish();
 
                         }
 
