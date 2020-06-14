@@ -16,9 +16,5 @@
         android:icon="@drawable/ic_timeline"
         android:title="@string/title_timeline" />
 
-    <item
-        android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_account"
-        android:title="@string/title_account" />
 
 </menu>

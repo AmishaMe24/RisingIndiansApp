@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/user_name"
         android:textSize="16dp"
-        android:textColor="@color/white"
+        android:textColor="@color/colorAccent"
         android:text="User Name"
         android:layout_marginBottom="16dp">
 

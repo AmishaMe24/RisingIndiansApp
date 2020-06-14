@@ -56,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
     private EventsFragment eventsFragment;
     private DonateFragment donateFragment;
     private Timeline_Fragment timelineFragment;
-    private AccountFragment accountFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,17 +70,11 @@ public class HomeActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
-        upArrow.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP);
-        actionBar.setHomeAsUpIndicator(upArrow);
-
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#E26347"));
 
         // Set BackgroundDrawable
         actionBar.setBackgroundDrawable(colorDrawable);
-        actionBar.setTitle(Html.fromHtml("<font color='#FFFFFF'> Rising Indians </font>"));
 
         dl = (DrawerLayout)findViewById(R.id.activity_home);
         t = new ActionBarDrawerToggle(this, dl,R.string.Open, R.string.Close);
@@ -103,7 +96,6 @@ public class HomeActivity extends AppCompatActivity {
             eventsFragment = new EventsFragment();
             donateFragment = new DonateFragment();
             timelineFragment = new Timeline_Fragment();
-            accountFragment = new AccountFragment();
 
             initializeFragment();
 
@@ -127,6 +119,11 @@ public class HomeActivity extends AppCompatActivity {
                             startActivity(contactintent);
                             return true;
 
+                        case R.id.action_aboutus_btn:
+                            Intent aboutintent = new Intent(HomeActivity.this, About_Activity.class);
+                            startActivity(aboutintent);
+                            return true;
+
                         default:
                             return false;
                     }
@@ -146,10 +143,6 @@ public class HomeActivity extends AppCompatActivity {
                             replaceFragment(eventsFragment, currentFragment);
                             return true;
 
-                        case R.id.navigation_account:
-
-                            replaceFragment(accountFragment, currentFragment);
-                            return true;
 
                         case R.id.navigation_donate:
 
@@ -342,11 +335,9 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fragment_container, eventsFragment);
         fragmentTransaction.add(R.id.fragment_container, donateFragment);
         fragmentTransaction.add(R.id.fragment_container, timelineFragment);
-        fragmentTransaction.add(R.id.fragment_container, accountFragment);
 
         fragmentTransaction.hide(donateFragment);
         fragmentTransaction.hide(timelineFragment);
-        fragmentTransaction.hide(accountFragment);
 
         fragmentTransaction.commit();
 
@@ -359,30 +350,20 @@ public class HomeActivity extends AppCompatActivity {
 
             fragmentTransaction.hide(donateFragment);
             fragmentTransaction.hide(timelineFragment);
-            fragmentTransaction.hide(accountFragment);
 
         }
 
-        if(fragment == accountFragment){
-
-            fragmentTransaction.hide(eventsFragment);
-            fragmentTransaction.hide(donateFragment);
-            fragmentTransaction.hide(timelineFragment);
-
-        }
 
         if(fragment == donateFragment){
 
             fragmentTransaction.hide(eventsFragment);
             fragmentTransaction.hide(timelineFragment);
-            fragmentTransaction.hide(accountFragment);
 
         }
         if(fragment == timelineFragment){
 
             fragmentTransaction.hide(eventsFragment);
             fragmentTransaction.hide(donateFragment);
-            fragmentTransaction.hide(accountFragment);
 
         }
         fragmentTransaction.show(fragment);

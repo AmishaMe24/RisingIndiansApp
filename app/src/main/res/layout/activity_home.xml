@@ -32,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimaryDark"
-            app:itemIconTint="@color/white"
-            app:itemTextColor="@color/white"
+            app:itemIconTint="@color/colorAccent"
+            app:itemTextColor="@color/colorAccent"
             app:menu="@menu/bottom_navigation_menu" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -47,7 +47,6 @@
         style="Widget.MaterialComponents.FloatingActionButton"
         android:clickable="true"
         app:backgroundTint="@color/colorPrimaryDark"
-        app:tint="@color/white"
         app:srcCompat="@drawable/ic_add"
         tools:ignore="VectorDrawableCompat"
         android:focusable="true" />

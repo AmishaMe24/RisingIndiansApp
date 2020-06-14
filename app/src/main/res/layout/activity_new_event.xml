@@ -16,8 +16,10 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
         android:text="Post Event"
+        android:textSize="18dp"
+        app:backgroundTint = "@color/colorPrimaryDark"
         android:textAllCaps="false"
-        android:textColor="@color/white" />
+        android:textColor="@color/colorAccent" />
 
 
     <EditText
@@ -26,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/add_new_image"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Add Description"

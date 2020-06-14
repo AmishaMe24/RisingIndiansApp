@@ -109,7 +109,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                app:backgroundTint = "@color/colorPrimaryDark"
                 android:layout_gravity="center"
+                android:textColor="@color/colorAccent"
                 android:text="@string/send_message"
                 style="@style/Widget.MaterialComponents.Button"
             />

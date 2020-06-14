@@ -15,6 +15,12 @@
         android:title="@string/action_contactus" />
 
     <item
+        android:id="@+id/action_aboutus_btn"
+        android:icon="@drawable/ic_info"
+        android:iconTint="@color/colorPrimary"
+        android:title="@string/action_aboutus" />
+
+    <item
         android:id="@+id/action_logout_btn"
         android:icon="@drawable/logout"
         android:iconTint="@color/colorPrimary"

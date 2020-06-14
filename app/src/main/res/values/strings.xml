@@ -28,5 +28,7 @@
     <string name="mail_suffix">\@gmail.com</string>
     <string name="phonenumber"><u>+91 8980862848</u></string>
     <string name="address">A, 23 Javed Park, Tandalja Road, Vadodara, Gujarat 390020</string>
+    <string name="about_risingindians">"Rising Indians is a group of young and dynamic Indians who work on innovative concept to solve problems faced by people. \n \nRising Indians is a group of dynamic people who want to solve the problems face by people through innovative ways. We believe in solving problem by tapping the potential of youth and finding new ways of doing things. We believe education is basic need for everyone and it should not be costly. We believe, education should be FREE. "</string>
+    <string name="action_aboutus">About Us</string>
 
 </resources>
